@@ -1,26 +1,390 @@
 @import "tailwindcss";
 
+/* ============================================
+   PDFPro - Premium Futuristic Dark Design
+   Theme: Ultra-Modern, Glassmorphism, Neon Auras
+   ============================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Deep Dark Background */
+  --bento-bg: #050510;
+  --bento-bg-gradient: radial-gradient(ellipse at 50% 0%, rgba(30, 20, 60, 0.4) 0%, rgba(5, 5, 16, 1) 70%);
+
+  /* Premium Glassmorphism */
+  --card-glass: rgba(255, 255, 255, 0.03);
+  --card-glass-hover: rgba(255, 255, 255, 0.07);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-border-hover: rgba(255, 255, 255, 0.18);
+  --card-blur: 24px;
+
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.4);
+
+  /* Neon Color Palette */
+  --neon-red: #ff3366;
+  --neon-orange: #ff6b35;
+  --neon-yellow: #ffc107;
+  --neon-green: #00d9a5;
+  --neon-cyan: #00d4ff;
+  --neon-blue: #4d7cff;
+  --neon-purple: #a855f7;
+  --neon-pink: #ff6eb4;
+
+  /* Glow Intensities */
+  --glow-soft: 0 0 20px;
+  --glow-medium: 0 0 40px;
+  --glow-strong: 0 0 60px;
+
+  /* Border Radius */
+  --radius-card: 1.5rem;
+  --radius-icon: 1rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bento-bg);
+  background-image: var(--bento-bg-gradient);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ============================================
+   Premium Glassmorphism Cards
+   ============================================ */
+
+.glass-card {
+  background: var(--card-glass);
+  backdrop-filter: blur(var(--card-blur));
+  -webkit-backdrop-filter: blur(var(--card-blur));
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.glass-card:hover {
+  background: var(--card-glass-hover);
+  border-color: var(--card-border-hover);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   3D Neon Icon Styles with Auras
+   ============================================ */
+
+.neon-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-icon);
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+/* Aura glow behind icons */
+.neon-icon::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+  opacity: 0.5;
+  filter: blur(16px);
+  z-index: -1;
+  transition: opacity 0.4s ease;
+}
+
+.glass-card:hover .neon-icon::before {
+  opacity: 0.8;
+}
+
+.glass-card:hover .neon-icon {
+  transform: scale(1.1) translateY(-2px);
+}
+
+/* Neon Red */
+.neon-icon-red {
+  background: linear-gradient(135deg, #ff3366 0%, #ff1744 100%);
+  box-shadow: var(--glow-soft) rgba(255, 51, 102, 0.5);
+}
+
+.neon-icon-red::before {
+  background: #ff3366;
+}
+
+.glass-card:hover .neon-icon-red {
+  box-shadow: var(--glow-medium) rgba(255, 51, 102, 0.7);
+}
+
+/* Neon Orange */
+.neon-icon-orange {
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+  box-shadow: var(--glow-soft) rgba(255, 107, 53, 0.5);
+}
+
+.neon-icon-orange::before {
+  background: #ff6b35;
+}
+
+.glass-card:hover .neon-icon-orange {
+  box-shadow: var(--glow-medium) rgba(255, 107, 53, 0.7);
+}
+
+/* Neon Yellow */
+.neon-icon-yellow {
+  background: linear-gradient(135deg, #ffc107 0%, #ffca28 100%);
+  box-shadow: var(--glow-soft) rgba(255, 193, 7, 0.5);
+}
+
+.neon-icon-yellow::before {
+  background: #ffc107;
+}
+
+.glass-card:hover .neon-icon-yellow {
+  box-shadow: var(--glow-medium) rgba(255, 193, 7, 0.7);
+}
+
+/* Neon Green */
+.neon-icon-green {
+  background: linear-gradient(135deg, #00d9a5 0%, #00e676 100%);
+  box-shadow: var(--glow-soft) rgba(0, 217, 165, 0.5);
+}
+
+.neon-icon-green::before {
+  background: #00d9a5;
+}
+
+.glass-card:hover .neon-icon-green {
+  box-shadow: var(--glow-medium) rgba(0, 217, 165, 0.7);
+}
+
+/* Neon Cyan */
+.neon-icon-cyan {
+  background: linear-gradient(135deg, #00d4ff 0%, #00bcd4 100%);
+  box-shadow: var(--glow-soft) rgba(0, 212, 255, 0.5);
+}
+
+.neon-icon-cyan::before {
+  background: #00d4ff;
+}
+
+.glass-card:hover .neon-icon-cyan {
+  box-shadow: var(--glow-medium) rgba(0, 212, 255, 0.7);
+}
+
+/* Neon Blue */
+.neon-icon-blue {
+  background: linear-gradient(135deg, #4d7cff 0%, #2196f3 100%);
+  box-shadow: var(--glow-soft) rgba(77, 124, 255, 0.5);
+}
+
+.neon-icon-blue::before {
+  background: #4d7cff;
+}
+
+.glass-card:hover .neon-icon-blue {
+  box-shadow: var(--glow-medium) rgba(77, 124, 255, 0.7);
+}
+
+/* Neon Purple */
+.neon-icon-purple {
+  background: linear-gradient(135deg, #a855f7 0%, #9c27b0 100%);
+  box-shadow: var(--glow-soft) rgba(168, 85, 247, 0.5);
+}
+
+.neon-icon-purple::before {
+  background: #a855f7;
+}
+
+.glass-card:hover .neon-icon-purple {
+  box-shadow: var(--glow-medium) rgba(168, 85, 247, 0.7);
+}
+
+/* Neon Pink */
+.neon-icon-pink {
+  background: linear-gradient(135deg, #ff6eb4 0%, #e91e63 100%);
+  box-shadow: var(--glow-soft) rgba(255, 110, 180, 0.5);
+}
+
+.neon-icon-pink::before {
+  background: #ff6eb4;
+}
+
+.glass-card:hover .neon-icon-pink {
+  box-shadow: var(--glow-medium) rgba(255, 110, 180, 0.7);
+}
+
+/* ============================================
+   Dynamic Bento Grid Layout
+   ============================================ */
+
+.bento-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: minmax(130px, auto);
+}
+
+/* Hero card - large prominent position */
+.bento-hero {
+  grid-column: span 2;
+  grid-row: span 3;
+}
+
+@media (max-width: 1200px) {
+  .bento-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .bento-hero {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+}
+
+@media (max-width: 900px) {
+  .bento-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .bento-hero {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+}
+
+/* ============================================
+   Header Styles
+   ============================================ */
+
+.header-dark {
+  background: rgba(5, 5, 16, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   Hero Card Special Styling
+   ============================================ */
+
+.hero-card {
+  background: linear-gradient(135deg,
+      rgba(255, 51, 102, 0.15) 0%,
+      rgba(255, 51, 102, 0.05) 50%,
+      rgba(20, 10, 30, 0.3) 100%);
+  border: 1px solid rgba(255, 51, 102, 0.2);
+  position: relative;
+  overflow: visible;
+}
+
+.hero-card::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 51, 102, 0.3), transparent 60%);
+  z-index: -1;
+  filter: blur(20px);
+  opacity: 0.6;
+}
+
+.hero-dashed-border {
+  position: absolute;
+  inset: 16px;
+  border: 2px dashed rgba(255, 51, 102, 0.4);
+  border-radius: 1rem;
+  pointer-events: none;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+
+.text-premium {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.text-glow {
+  text-shadow: 0 0 20px currentColor;
+}
+
+/* Tailwind theme */
+@theme inline {
+  --color-background: var(--bento-bg);
+  --color-foreground: var(--text-primary);
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+/* ============================================
+   Visible Back to Home Button
+   ============================================ */
+
+/* Make the back-to-home link clearly visible */
+a[href="/"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background: #1a1a2e;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+a[href="/"]:hover {
+  background: #252542;
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(-2px);
 }
